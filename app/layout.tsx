@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,11 +20,32 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
+    // default layout pour toutes les pages, {children} ajoute le layout de la page spécifique
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <header className="flex items-center justify-between bg-gray-800 text-white p-4">
+          <h3>Ricardo</h3>
+          <nav>
+            <ul className="flex gap-4">
+              <li>
+                <Link href="/" className="hover:underline">Accueil</Link>
+              </li>
+              <li>
+                <Link href="/recipes" className="hover:underline">Recettes</Link>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <main className="flex-1 px-16 py-8">
+          {children}
+        </main>
+        <footer>
+          <p className="text-center text-gray-500 p-5">&copy; Tous droits réservés.</p>
+        </footer>
+      </body>
     </html>
   );
 }
